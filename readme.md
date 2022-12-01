@@ -29,7 +29,7 @@ From the PgAdmin UI import the file [restore.tar](backup/restore.tar):
 
 ### Top 10:
 We use the window function `ROW_NUMBER()` to assign the place to each movie with the highest number of rentals.
-```postgresql
+```sql
 SELECT
     movies.movie_id AS id,
     movies.title,
