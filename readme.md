@@ -56,7 +56,7 @@ LIMIT 10;
 ### Price update:
 1. We create a trigger function which will update the data in the movies_price_change_type table each time new information is inserted in the movies table.
 
-![Untitled](images/Untitled%202.png)
+![Untitled](images/Untitled%202.PNG)
 
 2. Next, we insert the next script in the code tab:
 ```sql
