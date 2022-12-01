@@ -10,9 +10,9 @@ You can import the DB information in two different ways:
 ### ShellScript:
 Using `psql` command from terminal with file [restore.sql](backup/restore.sql):
     
-    ```bash
+```bash
     psql -U username -W -h cinnamon_movies < restore.sql
-    ```
+```
 Where the params are:
 - U: Refers to the User, in this case it can be the database owner user or the postgres user.
 - W: Password of the user specified above (if any).
@@ -29,7 +29,7 @@ From the PgAdmin UI import the file [restore.tar](backup/restore.tar):
 
 ### Top 10:
 We use the window function `ROW_NUMBER()` to assign the place to each movie with the highest number of rentals.
-```postgres
+```sql
 SELECT
     movies.movie_id AS id,
     movies.title,
@@ -59,7 +59,7 @@ LIMIT 10;
 ![Untitled](images/Untitled%202.png)
 
 2. Next, we insert the next script in the code tab:
-```postgresql
+```sql
 BEGIN
 	INSERT INTO movies_price_change_type(
         movie_id,
@@ -76,7 +76,7 @@ BEGIN
 END
 ```
 3. Finally we create the trigger that will call the function each time data is inserted or modified in the movies table.
-```postgresql
+```sql
 CREATE TRIGGER trigger_update_change_types
     AFTER INSERT OR UPDATE
     ON public.movies
@@ -86,7 +86,7 @@ CREATE TRIGGER trigger_update_change_types
 
 ### Amount of rentals per city:
 We use mulptiple `INNER JOIN` to create the connection between the cities, stores, inventory and movies tables through the foreign keys.
-```postgresql
+```sql
 SELECT cities.city_id,
     cities.city,
     COUNT(*) AS rents_by_city
@@ -106,7 +106,7 @@ GROUP BY cities.city_id;
 
 ### Number of rentals for each movie per month and year:
 We use the `DATE_PART()` function to extract the year and month in two different columns.
-```postgresql
+```sql
 SELECT 
     DATE_PART('year',rentals.rent_date) AS year,
     DATE_PART('month',rentals.rent_date) AS month,
@@ -133,7 +133,7 @@ ORDER BY rentals_amount DESC;
 ### Working with JSON data:
 The orders table stores non-movie related rental information as JSON objects.
 - Adding information:
-```postgresql
+```sql
 INSERT INTO orders(info) VALUES(
     '{"client":"David Sanchez",
     "items":{
@@ -145,7 +145,7 @@ INSERT INTO orders(info) VALUES(
     }')
 ```
 - Extracting data in string format:
-```postgresql
+```sql
 SELECT
     info ->> 'client' AS client
 FROM orders
