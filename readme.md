@@ -2,7 +2,8 @@
 This is a database with information from a dummy movie rental company. It contains information about price of each movie, categories, orders, customers, languages, stores and payments. Also the database is able to make queries like top 10, rentals per year and month, bla using stored procedures, triggers and window functions for performance efficiency.
 
 ## ER Diagram
-![Untitled](images/DIAGRAM.png)
+
+[![Diagram](images/DIAGRAM.png)](https://dbdiagram.io/d/636e8727c9abfc6111720668)
 
 ## **⚡️ Quickstart.**
 You can import the DB information in two different ways:
